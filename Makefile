@@ -28,3 +28,9 @@ gen-swagger:
 	cd api; protoc -I . --openapiv2_out ./openapiv2 \
                 --openapiv2_opt logtostderr=true \
                 api.proto
+
+imagebuild:
+	docker build -t rusprofile:latest .
+
+dockerrun:
+	docker run -it -p 8080:8080 -p 8888:8888 --rm rusprofile:latest
