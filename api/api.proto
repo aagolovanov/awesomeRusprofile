@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "github.com/aagolovanov/awesomeRusprofile/pkg";
+
+
+
+message Request {
+  string INN = 1;
+}
+
+message Response {
+  string INN  = 1;
+  string KPP  = 2;
+  string NAME = 3;
+  string FIO  = 4;
+}
+
+
+service Scraper {
+  rpc FindCompanyByINN(Request) returns (Response) {
+
+  }
+}
