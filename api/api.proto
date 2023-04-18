@@ -1,8 +1,10 @@
 syntax = "proto3";
 
+package com.github.aagolovanov.awesomeRusprofile.v1;
+
 option go_package = "github.com/aagolovanov/awesomeRusprofile/pkg";
 
-
+import "google/api/annotations.proto";
 
 message Request {
   string INN = 1;
@@ -18,6 +20,8 @@ message Response {
 
 service Scraper {
   rpc FindCompanyByINN(Request) returns (Response) {
-
+    option (google.api.http) = {
+      get: "/v1/find/{INN}"
+    };
   }
 }
