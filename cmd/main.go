@@ -3,11 +3,23 @@ package main
 import (
 	"fmt"
 	"github.com/aagolovanov/awesomeRusprofile/pkg"
+	"log"
 )
 
 func main() {
-	_, err := pkg.GetMainInfo("5258081758")
+	comp, err := pkg.GetMainInfo("5258081758")
 	if err != nil {
-		fmt.Println(err)
+		log.Panicln(err)
 	}
+
+	kpp, err := pkg.GetCompanyKPP(comp)
+	if err != nil {
+		log.Panicln(err)
+	}
+
+	fmt.Printf(
+		"ИНН %s\n"+
+			"КПП: %s\n"+
+			"Название: %s\n"+
+			"ФИО Рук.:%s\n", comp.INN, kpp, comp.Name, comp.FIO)
 }

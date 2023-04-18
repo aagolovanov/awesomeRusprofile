@@ -9,10 +9,10 @@ type CompanyInfo struct {
 
 type FullCompanyInfo struct {
 	defaultInfo *CompanyInfo
-	LPP string
+	LPP         string
 }
 
 const (
-	address = "https://www.rusprofile.ru/"
+	address = "https://www.rusprofile.ru"
 	query   = "ajax.php?query=%s&action=search"
 )
