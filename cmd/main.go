@@ -11,6 +11,8 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"path"
+	"strings"
 )
 
 //func main() {
@@ -42,6 +44,30 @@ func main() {
 	startGRPC()
 }
 
+func registerSwaggerUI(mux *http.ServeMux) {
+
+	mux.HandleFunc("/swaggerui/swagger.json", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./api/openapiv2/api.swagger.json")
+	})
+
+	mux.HandleFunc("/swaggerui/", func(w http.ResponseWriter, r *http.Request) {
+		p := strings.TrimPrefix(r.URL.Path, "/swaggerui/")
+		if p == "" {
+			http.ServeFile(w, r, path.Join("./static", "index.html"))
+		} else {
+			p = path.Join("./static", p)
+			http.ServeFile(w, r, p)
+		}
+	})
+
+	//mux.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
+	//	fmt.Println(2)
+	//	p := strings.TrimPrefix(r.URL.Path, "/static")
+	//	p = path.Join("./static", p)
+	//	http.ServeFile(w, r, p)
+	//})
+}
+
 func startHTTP() {
 	mux := http.NewServeMux()
 
@@ -49,6 +75,8 @@ func startHTTP() {
 	if err != nil {
 		log.Fatalf("error while registering gateway ep: %v", err)
 	}
+
+	registerSwaggerUI(mux)
 
 	mux.Handle("/", gw)
 

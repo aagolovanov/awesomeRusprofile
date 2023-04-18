@@ -3,8 +3,8 @@ clean:
 	cd ./pkg && rm -f *.pb.go
 
 
-protogen: clean
-	cd api; protoc -I google/api --go_out=../pkg --go_opt=paths=source_relative \
+protogen:
+	cd api; protoc --go_out=../pkg --go_opt=paths=source_relative \
                 --go-grpc_out=../pkg --go-grpc_opt=paths=source_relative \
                 api.proto
 
