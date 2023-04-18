@@ -56,7 +56,7 @@ func GetMainInfo(inn string) (*CompanyInfo, error) {
 	}
 
 	if comp == nil {
-		return nil, errors.New("no companies with provided INN")
+		return nil, errors.New("NotFound")
 	}
 
 	return comp, nil

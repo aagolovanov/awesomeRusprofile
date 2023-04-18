@@ -7,7 +7,6 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
 	"net/http"
@@ -102,7 +101,7 @@ func startGRPC() {
 	}
 
 	grpcServer := grpc.NewServer()
-	reflection.Register(grpcServer)
+	//reflection.Register(grpcServer)
 	pkg.RegisterScraperServer(
 		grpcServer,
 		pkg.MyScraper{},

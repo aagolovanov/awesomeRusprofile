@@ -15,7 +15,11 @@ type MyScraper struct {
 func (m MyScraper) FindCompanyByINN(ctx context.Context, request *Request) (*Response, error) {
 	company, err := GetMainInfo(request.INN)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "%v", err)
+		if err.Error() == "NotFound" {
+			return nil, status.Error(codes.NotFound, "No companies with provided INN")
+		} else {
+			return nil, status.Errorf(codes.Internal, "%v", err)
+		}
 	}
 
 	kpp, err := GetCompanyKPP(company)
